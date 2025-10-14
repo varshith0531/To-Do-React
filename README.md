@@ -1,7 +1,7 @@
 ## ToDo React App
 
 A simple and responsive ToDo application built with React and Vite. It allows you to add, complete, edit, and delete tasks with a clean UI.
-Link:`https://to-do-six-sepia.vercel.app/`
+[Open](https://to-do-six-sepia.vercel.app/)
 
 ### Features
 - **Add tasks**: Quickly create new todos
