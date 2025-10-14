@@ -1,12 +1,69 @@
-# React + Vite
+## ToDo React App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple and responsive ToDo application built with React and Vite. It allows you to add, complete, edit, and delete tasks with a clean UI.
 
-Currently, two official plugins are available:
+### Features
+- **Add tasks**: Quickly create new todos
+- **Mark complete**: Toggle completion state
+- **Edit tasks**: Update existing todos
+- **Delete tasks**: Remove individual items
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Tech Stack
+- **Framework**: React 19
+- **Bundler/Dev Server**: Vite 7
+- **Styling**: Tailwind CSS 4 (via `@tailwindcss/vite`)
+- **Linting**: ESLint 9
 
-## Expanding the ESLint configuration
+### Getting Started
+1) Clone the repository
+```bash
+git clone <your-repo-url>
+cd ToDo-React-App
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+2) Install dependencies
+```bash
+npm install
+```
+
+3) Start the development server
+```bash
+npm run dev
+```
+
+Open `http://localhost:5173` in your browser.
+
+### Available Scripts
+- `dev`: Start Vite dev server
+- `build`: Build for production
+- `preview`: Preview the production build locally
+- `lint`: Run ESLint
+
+### Project Structure (typical)
+```
+ToDo-React-App/
+  ├─ src/
+  │  ├─ components/
+  │  │  └─ Todo.jsx
+  │  ├─ App.jsx
+  │  └─ main.jsx
+  ├─ index.html
+  ├─ package.json
+  └─ README.md
+```
+
+### How It Works
+- `Todo.jsx` renders the list UI and handles add/edit/toggle/delete interactions using React hooks.
+- State is managed locally within components using `useState` (and `useEffect` if needed).
+
+### Styling (Tailwind CSS 4)
+- Tailwind is integrated via the Vite plugin `@tailwindcss/vite`.
+- Ensure your global stylesheet includes Tailwind layers, for example:
+```css
+@import "tailwindcss";
+```
+
+### Contributing
+1) Create a feature branch
+2) Commit with clear messages
+3) Open a pull request with a concise description and screenshots if UI-related
