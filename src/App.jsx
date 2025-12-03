@@ -39,7 +39,7 @@ const App = () => {
           style={{ width: '100%', height: '100%' }}
         />
       </div>
-      <div className='relative z-10 flex flex-col md:flex-row gap-4 sm:gap-6 py-4 sm:py-6 px-3 sm:px-4 min-h-screen justify-center items-start'>
+      <div className='relative z-10 flex flex-col md:flex-row gap-4 sm:gap-6 py-3 sm:py-4 px-2 sm:px-3 min-h-screen justify-center items-center'>
         <Todo />
         <Calendar />
       </div>
