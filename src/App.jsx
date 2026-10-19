@@ -21,7 +21,7 @@ const App = () => {
         <PixelBlast
           variant="circle"
           pixelSize={6}
-          color="rgb(255,0,0)"
+          color="rgb(249,115,22)"
           patternScale={8}
           patternDensity={1.15}
           pixelSizeJitter={0.5}
@@ -39,7 +39,7 @@ const App = () => {
           style={{ width: '100%', height: '100%' }}
         />
       </div>
-      <div className='relative z-10 flex flex-col md:flex-row gap-4 sm:gap-6 py-3 sm:py-4 px-2 sm:px-3 min-h-screen justify-center items-center'>
+      <div className='relative z-10 flex flex-col lg:flex-row gap-6 sm:gap-8 py-8 sm:py-12 px-4 w-full min-h-screen justify-center items-center'>
         <Todo />
         <Calendar />
       </div>
