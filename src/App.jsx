@@ -1,9 +1,47 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Todo from './components/Todo'
 import Calendar from './components/Calendar'
 import PixelBlast from './components/PixelBlast'
+import { formatDateKey } from './utils/dateUtils'
 
 const App = () => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const todoRef = useRef(null);
+
+  // Initialize todoList from localStorage with backwards compatibility migration
+  const [todoList, setTodoList] = useState(() => {
+    try {
+      const saved = localStorage.getItem("todos");
+      if (!saved) return [];
+      const parsed = JSON.parse(saved);
+      if (!Array.isArray(parsed)) return [];
+      
+      const todayKey = formatDateKey(new Date());
+      return parsed.map((item) => ({
+        ...item,
+        date: item.date || (item.createdAt ? formatDateKey(item.createdAt) : todayKey),
+      }));
+    } catch (e) {
+      console.error("Error reading todos from localStorage", e);
+      return [];
+    }
+  });
+
+  // Sync todos to localStorage whenever todoList changes
+  useEffect(() => {
+    try {
+      localStorage.setItem("todos", JSON.stringify(todoList));
+    } catch (e) {
+      console.error("Failed to save todos to localStorage", e);
+    }
+  }, [todoList]);
+
+  const handleAddTaskClick = () => {
+    if (todoRef.current) {
+      todoRef.current.focusInput();
+    }
+  };
+
   return (
     <div className='bg-gray-950 relative min-h-screen w-full overflow-hidden m-0 p-0'>
       <div 
@@ -39,9 +77,21 @@ const App = () => {
           style={{ width: '100%', height: '100%' }}
         />
       </div>
+
       <div className='relative z-10 flex flex-col lg:flex-row gap-6 sm:gap-8 py-8 sm:py-12 px-4 w-full min-h-screen justify-center items-center'>
-        <Todo />
-        <Calendar />
+        <Todo 
+          ref={todoRef}
+          selectedDate={selectedDate}
+          onSelectDate={setSelectedDate}
+          todoList={todoList}
+          setTodoList={setTodoList}
+        />
+        <Calendar 
+          selectedDate={selectedDate}
+          onSelectDate={setSelectedDate}
+          todoList={todoList}
+          onAddTaskClick={handleAddTaskClick}
+        />
       </div>
     </div>
   )

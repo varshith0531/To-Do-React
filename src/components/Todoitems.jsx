@@ -2,8 +2,20 @@ import React from 'react'
 import tick from '../assets/tick.png'
 import delete_icon from '../assets/delete.png'
 import not_tick from '../assets/not_tick.png'
+import { getRelativeDateInfo, parseDateKey } from '../utils/dateUtils'
 
-const Todoitems = ({ text, id, isComplete, deleteTodo, toggle }) => {
+const Todoitems = ({ 
+  text, 
+  id, 
+  isComplete, 
+  deleteTodo, 
+  toggle, 
+  date, 
+  showDateBadge, 
+  onSelectDate 
+}) => {
+  const dateInfo = date ? getRelativeDateInfo(date) : null;
+
   return (
     <div 
       onClick={() => toggle(id)}
@@ -40,21 +52,42 @@ const Todoitems = ({ text, id, isComplete, deleteTodo, toggle }) => {
         </p>
       </div>
 
-      <button 
-        onClick={(e) => {
-          e.stopPropagation(); 
-          deleteTodo(id);
-        }} 
-        type="button"
-        className='p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 active:scale-95 rounded-lg transition-all duration-150 flex-shrink-0 cursor-pointer' 
-        aria-label="Delete task"
-        title="Delete task"
-      >
-        <img src={delete_icon} alt="Delete" className='w-3.5 h-3.5 object-contain opacity-50 group-hover:opacity-80 hover:opacity-100 transition-opacity'/>
-      </button>
+      <div className="flex items-center gap-1.5 flex-shrink-0">
+        {showDateBadge && dateInfo && (
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              if (onSelectDate) {
+                onSelectDate(parseDateKey(date));
+              }
+            }} 
+            type="button"
+            title={`Jump to ${dateInfo.subtitle}`}
+            className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border transition-colors cursor-pointer ${
+              dateInfo.isToday 
+                ? 'bg-orange-50 text-orange-600 border-orange-200/70 hover:bg-orange-100' 
+                : 'bg-slate-100 text-slate-600 border-slate-200/80 hover:bg-slate-200'
+            }`}
+          >
+            {dateInfo.badge}
+          </button>
+        )}
+
+        <button 
+          onClick={(e) => {
+            e.stopPropagation(); 
+            deleteTodo(id);
+          }} 
+          type="button"
+          className='p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 active:scale-95 rounded-lg transition-all duration-150 flex-shrink-0 cursor-pointer' 
+          aria-label="Delete task"
+          title="Delete task"
+        >
+          <img src={delete_icon} alt="Delete" className='w-3.5 h-3.5 object-contain opacity-50 group-hover:opacity-80 hover:opacity-100 transition-opacity'/>
+        </button>
+      </div>
     </div>
   )
 }
 
 export default Todoitems
- 
